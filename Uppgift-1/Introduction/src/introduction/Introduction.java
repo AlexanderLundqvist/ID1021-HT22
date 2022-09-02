@@ -20,7 +20,7 @@ public class Introduction {
     */
     private static double arrayAccess(int n) {
         
-        int k = 1000000;
+        int k = 1000;
         Random rand = new Random();
         
         int[] index = new int[n];
@@ -39,12 +39,9 @@ public class Introduction {
         long t0 = System.nanoTime();
         for (int i = 0; i < k; i++) {
             for (int j = 0; j < n; j++) {
-                    // access the dummyArray with the index given by index[i]
-                    // sum up the result
                     sum += dummyArray[index[j]];
                 }
         }
-        
         long t_access = (System.nanoTime() - t0);
         
         t0 = System.nanoTime();
@@ -123,6 +120,9 @@ public class Introduction {
         int[] keys = new int[n];
         int[] array = new int[n];   
         
+        long t0 = 0;
+        long t1 = 0;
+        
         // fill the keys array with random number from 0 to n
         for (int k = 0; k < n; k++) {
             keys[k] = rand.nextInt(n);
@@ -135,53 +135,69 @@ public class Introduction {
         long t_total = 0;
         int sum = 0;
         
-        long t0 = System.nanoTime();
+        t0 = System.nanoTime();
         for (int ki = 0; ki < n; ki++) {
             int key = keys[ki];           
             for (int j = 0; j < n ; j++) {
                 if (array[j] == key) {
                     sum++;
-                    break;
+                    //break;
                 }
             }
         }
+        t1 = System.nanoTime();
         t_total += (System.nanoTime() - t0);
         
-        return ((double)t_total/((double)n*(double)n));
+        //return ((double)t_total/((double)n*(double)n));
+        return ((double)t1 - (double)t0);
     }
-    
+   
+    /**
+     * Controls the flow of the program.
+     * @param args take no argument
+     */
     public static void main(String[] args) {
         
         // Task 1
-//        System.out.println("Task 1");
-//        int a = 200;
-//        double test = arrayAccess(a); // To prevent faulty value 
-//        for (int i = 0; i < 10; i++) {
-//            System.out.println(arrayAccess(a));
-//            a += 200;
-//        } 
-//        System.out.println();
-       
+        System.out.println("Task 1");
+        // To prevent faulty value
+        double test = arrayAccess(100);
+        double test2 = arraySearch(100);
+        double test3 = duplicates(100);
+        
+        int a = 0;
+        for (int i = 0; i < 10; i++) {
+            a += 5000;
+            System.out.println(arrayAccess(a));
+        }
+        
+//        System.out.println(arrayAccess(1000));
+//        System.out.println(arrayAccess(10000));
+//        System.out.println(arrayAccess(100000));
+//        System.out.println(arrayAccess(1000000));
+//        System.out.println(arrayAccess(10000000));
+        
+        System.out.println();
     
         // Task 2
 //        System.out.println("Task 2");
-//        int b = 100;
-//        double test2 = arraySearch(b); // To prevent faulty value
-//        for (int i = 0; i < 10; i++) {
+//        double test2 = arraySearch(100); // To prevent faulty value
+//        int b = 0;
+//        for (int i = 0; i < 100; i++) {
+//            b += 10;
 //            System.out.println(arraySearch(b));
-//            b += 100;
 //        }
 //        System.out.println();
         
         
         // Task 3
-        System.out.println("Task 3");
-        int c = 100;
-        double test3 = duplicates(c); // To prevent faulty value
-        for (int i = 0; i < 10; i++) {
-            System.out.println(arraySearch(c));
-            c += 100;
-        }
-        System.out.println();
+//        System.out.println("Task 3");
+//        double test3 = duplicates(100); // To prevent faulty value
+//        int c = 0;
+//        for (int i = 0; i < 200; i++) {
+//            c += 1;
+//            System.out.println(duplicates(c));
+//        }
+//        System.out.println();
     } 
 }
