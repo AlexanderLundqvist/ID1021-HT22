@@ -1,14 +1,14 @@
 package calculatorpolishreverse;
 
-public class StaticCalculator {
+public class DynamicCalculator {
     Item[] expression;
     int pointer;
-    Stack stack;
+    DynamicStack stack;
     
-    public StaticCalculator(Item[] expr) {
+    public DynamicCalculator(Item[] expr) {
         this.expression = expr;
         this.pointer = 0;
-        this.stack = new Stack(expr.length);
+        this.stack = new DynamicStack();
     }
     
     private void step() {
@@ -44,12 +44,15 @@ public class StaticCalculator {
                 break;
             }
             case MULX : {
-                double y = this.stack.pop().getValue() * 2;
-                if(y < 10){
-                    stack.push(new Item(y));
+                double y = this.stack.pop().getValue();
+                double x = this.stack.pop().getValue();
+                double sum = y*x;
+                if(sum < 10){
+                    stack.push(new Item(sum));
                 }
-                else
-                    this.stack.push(new Item((y - 10) + 1));
+                else {
+                    this.stack.push(new Item((sum - 10) + 1));
+                }  
                 break;
             }
             case VALUE : {
@@ -65,4 +68,5 @@ public class StaticCalculator {
         }
         return this.stack.pop().getValue();
     }
+
 }

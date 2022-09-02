@@ -13,11 +13,10 @@ public class Main {
     
     public static Item[] generateExpression(int size) {
         Item[] expression = new Item[size];
-        int i;
-        for (i = 0; i < size-1; i++) {
-            expression[i++] = new Item(1); 
-        }
-        expression[i++] = new Item(ItemType.ADD);
+        for (int i = 0; i <= size/2; i++)
+            expression[i] = new Item(1); 
+        for (int j = size/2 + 1; j < size; j++)
+            expression[j] = new Item(ItemType.ADD);
         return expression;
     }
     
@@ -65,22 +64,49 @@ public class Main {
         Item[] generatedExpression = generateExpression(size);
         System.out.println();
         System.out.println();
-
         
         StaticCalculator benchmarkStatic = new StaticCalculator(generatedExpression);
         Long ts0 = System.nanoTime();
-        benchmarkStatic.run();
+         System.out.println(benchmarkStatic.run());
         Long ts1 = System.nanoTime();
-        Long ts_total = (ts0 - ts1);
-        System.out.println("Static time for expression of size " + size + " is: " + ts_total);
+        Long ts_total = (ts1 - ts0);
+        System.out.println("Static time for expression of size " + size + " is: " + ts_total + "ns");
         System.out.println();
         
         DynamicCalculator benchmarkDynamic = new DynamicCalculator(generatedExpression);
         Long td0 = System.nanoTime();
-        benchmarkDynamic.run();
+        System.out.println(benchmarkDynamic.run());
         Long td1 = System.nanoTime();
-        Long td_total = (td0 - td1);
-        System.out.println("Static time for expression of size " + size + " is: " + td_total);
+        Long td_total = (td1 - td0);
+        System.out.println("Dynamic time for expression of size " + size + " is: " + td_total + "ns");
         System.out.println();
+        
+        // Evaluate personal number
+        System.out.println("Calculating last digit of personal number");
+        Item[] lastDigit = new Item[50];
+        
+        lastDigit[0] = new Item(9);
+        lastDigit[1] = new Item(2);
+        
+        lastDigit[2] = new Item(2);
+        lastDigit[3] = new Item(1);
+        
+        lastDigit[4] = new Item(0);
+        lastDigit[5] = new Item(2);
+        
+        lastDigit[6] = new Item(0);
+        lastDigit[7] = new Item(7);
+        
+        lastDigit[8] = new Item(9);
+        lastDigit[8] = new Item(9);
+        
+        lastDigit[8] = new Item(9);
+        lastDigit[8] = new Item(9);
+        
+        
+        
+        lastDigit[1] = new Item(ItemType.MOD);
+        StaticCalculator calculateDigit = new StaticCalculator(lastDigit);
+        System.out.println(calculateDigit.run());
     } 
 }
