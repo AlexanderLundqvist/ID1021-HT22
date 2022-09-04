@@ -19,43 +19,44 @@ public class Introduction {
     use. 
     */
     private static double arrayAccess(int n) {
-        
         int k = 1000;
+        int l = n;
+        
         Random rand = new Random();
         
-        int[] index = new int[n];
+        int[] index = new int[l];
         // filling the index with random number from 0 to n (not including n)
-        for (int a = 0; a < n; a++) {
-            index[a] = rand.nextInt(n);
+        for (int a = 0; a < l; a++) {
+            index[a] = rand.nextInt(l);
         }
         
-        int[] dummyArray = new int[n];
+        int[] dummyArray = new int[l];
         // filling the dummyArray with value 1
-        for (int d = 0; d < n; d++) {
-            dummyArray[d] = n;
+        for (int d = 0; d < l; d++) {
+            dummyArray[d] = l;
         }
         
         int sum = 0;
         long t0 = System.nanoTime();
         for (int i = 0; i < k; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < l; j++) {
                     sum += dummyArray[index[j]];
                 }
         }
         long t_access = (System.nanoTime() - t0);
         
-        t0 = System.nanoTime();
+        long t1 = System.nanoTime();
         int sumDummy = 0;
         // do the same loop iteration but only do a dummy add operation
         for (int i = 0; i < k; i++) {
-            for (int j = 0; j < n; j++) {
+            for (int j = 0; j < l; j++) {
                     sumDummy += 1;
                 }
         }
         
-        long t_dummy = (System.nanoTime() - t0);
+        long t_dummy = (System.nanoTime() - t1);
         
-        return ((double)(t_access - t_dummy))/((double)k*(double)n);
+        return ((double)(t_access - t_dummy))/((double)k*(double)l);
         
     }
     
@@ -122,19 +123,20 @@ public class Introduction {
         
         long t0 = 0;
         long t1 = 0;
+        long d0 = 0;
+        long d1 = 0;
         
-        // fill the keys array with random number from 0 to n
+        // fill the keys array with random number from 0 to n-1
         for (int k = 0; k < n; k++) {
             keys[k] = rand.nextInt(n);
         }
-        // fill the array with with random number from 0 to n
+        // fill the array with with random number from 0 to n-1
         for (int a = 0; a < n; a++) {
             array[a] = rand.nextInt(n);
         }
         
         long t_total = 0;
         int sum = 0;
-        
         t0 = System.nanoTime();
         for (int ki = 0; ki < n; ki++) {
             int key = keys[ki];           
@@ -146,10 +148,20 @@ public class Introduction {
             }
         }
         t1 = System.nanoTime();
-        t_total += (System.nanoTime() - t0);
+        t_total = t1 - t0;
         
-        //return ((double)t_total/((double)n*(double)n));
-        return ((double)t1 - (double)t0);
+//        long d_total = 0;
+//        int dummy = 0;
+//        d0 = System.nanoTime();
+//        for (int k = 0; k < n; k++) {          
+//            for (int l = 0; l < n ; l++) {
+//                dummy++;
+//            }
+//        }
+//        d1 = System.nanoTime();
+//        d_total = d1 - d0;
+//        return ((double)t_total - (double)d_total)/n;
+        return ((double)t_total);
     }
    
     /**
@@ -157,47 +169,67 @@ public class Introduction {
      * @param args take no argument
      */
     public static void main(String[] args) {
+        String format = "%-10s %-5s\n";
         
-        // Task 1
-        System.out.println("Task 1");
         // To prevent faulty value
         double test = arrayAccess(100);
         double test2 = arraySearch(100);
         double test3 = duplicates(100);
+        double testSum = test + test2 + test3;
+        System.out.println(testSum);
+        System.out.println();
         
+        // Task 1
+        System.out.println("Task 1");
+        System.out.format(format, "n", "ns");
         int a = 0;
         for (int i = 0; i < 10; i++) {
             a += 5000;
-            System.out.println(arrayAccess(a));
+            System.out.format(format, a, duplicates(a));
         }
-        
-//        System.out.println(arrayAccess(1000));
-//        System.out.println(arrayAccess(10000));
-//        System.out.println(arrayAccess(100000));
-//        System.out.println(arrayAccess(1000000));
-//        System.out.println(arrayAccess(10000000));
-        
         System.out.println();
     
         // Task 2
 //        System.out.println("Task 2");
-//        double test2 = arraySearch(100); // To prevent faulty value
+//        System.out.format(format, "n", "ns");
 //        int b = 0;
-//        for (int i = 0; i < 100; i++) {
+//        for (int i = 0; i < 10; i++) {
 //            b += 10;
-//            System.out.println(arraySearch(b));
+//            System.out.format(format, b, arraySearch(b));
 //        }
 //        System.out.println();
         
+        
+        // DEBUG
+        System.out.println();
+        System.out.println("Debugging");
+        System.out.format(format, "n", "ns");
+        System.out.format(format, 1, duplicates(1));
+        System.out.format(format, 2, duplicates(2));
+        System.out.format(format, 3, duplicates(3));
+        System.out.format(format, 4, duplicates(4));
+        System.out.format(format, 5, duplicates(5));
+        System.out.format(format, 6, duplicates(6));
+        System.out.println();
         
         // Task 3
 //        System.out.println("Task 3");
-//        double test3 = duplicates(100); // To prevent faulty value
+//        System.out.format(format, "n", "ns");
 //        int c = 0;
-//        for (int i = 0; i < 200; i++) {
-//            c += 1;
-//            System.out.println(duplicates(c));
+//        for (int i = 0; i < 10; i++) {
+//            c += 10;
+//            System.out.format(format, c, duplicates(c));
+//            
 //        }
 //        System.out.println();
+        
+        System.out.println("Task 3");
+        System.out.format(format, "n", "ns");
+        int c = 1;
+        for (int i = 0; i < 4; i++) {
+            System.out.format(format, c, duplicates(c));
+            c *= 10;
+        }
+        System.out.println();
     } 
 }
