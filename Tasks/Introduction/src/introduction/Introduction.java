@@ -123,9 +123,6 @@ public class Introduction {
         
         long t0 = 0;
         long t1 = 0;
-        long d0 = 0;
-        long d1 = 0;
-        
         // fill the keys array with random number from 0 to n-1
         for (int k = 0; k < n; k++) {
             keys[k] = rand.nextInt(n);
@@ -149,18 +146,6 @@ public class Introduction {
         }
         t1 = System.nanoTime();
         t_total = t1 - t0;
-        
-//        long d_total = 0;
-//        int dummy = 0;
-//        d0 = System.nanoTime();
-//        for (int k = 0; k < n; k++) {          
-//            for (int l = 0; l < n ; l++) {
-//                dummy++;
-//            }
-//        }
-//        d1 = System.nanoTime();
-//        d_total = d1 - d0;
-//        return ((double)t_total - (double)d_total)/n;
         return ((double)t_total);
     }
    
@@ -172,45 +157,45 @@ public class Introduction {
         String format = "%-10s %-5s\n";
         
         // To prevent faulty value
-        double test = arrayAccess(100);
-        double test2 = arraySearch(100);
-        double test3 = duplicates(100);
-        double testSum = test + test2 + test3;
-        System.out.println(testSum);
-        System.out.println();
+//        double test = arrayAccess(100);
+//        double test2 = arraySearch(100);
+//        double test3 = duplicates(100);
+//        double testSum = test + test2 + test3;
+//        System.out.println(testSum);
+//        System.out.println();
         
         // Task 1
-        System.out.println("Task 1");
-        System.out.format(format, "n", "ns");
-        int a = 0;
-        for (int i = 0; i < 10; i++) {
-            a += 5000;
-            System.out.format(format, a, duplicates(a));
-        }
-        System.out.println();
+//        System.out.println("Task 1");
+//        System.out.format(format, "n", "ns");
+//        int a = 0;
+//        for (int i = 0; i < 10; i++) {
+//            a += 250;
+//            System.out.format(format, a, arrayAccess(a));
+//        }
+//        System.out.println();
     
         // Task 2
 //        System.out.println("Task 2");
 //        System.out.format(format, "n", "ns");
 //        int b = 0;
 //        for (int i = 0; i < 10; i++) {
-//            b += 10;
+//            b += 250;
 //            System.out.format(format, b, arraySearch(b));
 //        }
 //        System.out.println();
         
         
         // DEBUG
-        System.out.println();
-        System.out.println("Debugging");
-        System.out.format(format, "n", "ns");
-        System.out.format(format, 1, duplicates(1));
-        System.out.format(format, 2, duplicates(2));
-        System.out.format(format, 3, duplicates(3));
-        System.out.format(format, 4, duplicates(4));
-        System.out.format(format, 5, duplicates(5));
-        System.out.format(format, 6, duplicates(6));
-        System.out.println();
+//        System.out.println();
+//        System.out.println("Debugging");
+//        System.out.format(format, "n", "ns");
+//        System.out.format(format, 1, duplicates(1));
+//        System.out.format(format, 2, duplicates(2));
+//        System.out.format(format, 3, duplicates(3));
+//        System.out.format(format, 4, duplicates(4));
+//        System.out.format(format, 5, duplicates(5));
+//        System.out.format(format, 6, duplicates(6));
+//        System.out.println();
         
         // Task 3
 //        System.out.println("Task 3");
@@ -223,13 +208,38 @@ public class Introduction {
 //        }
 //        System.out.println();
         
-        System.out.println("Task 3");
-        System.out.format(format, "n", "ns");
-        int c = 1;
-        for (int i = 0; i < 4; i++) {
-            System.out.format(format, c, duplicates(c));
-            c *= 10;
-        }
+//        System.out.println("Task 3");
+//        System.out.format(format, "n", "ns");
+//        int c = 4;
+//        for (int i = 0; i < 10; i++) {
+//            System.out.format(format, c, duplicates(c));
+//            c *= 2;
+//        }
+//        System.out.println();
+        
         System.out.println();
+        System.out.println("Calculate maxtime");
+        long hour = 3600000000000L;
+        long n = 1;
+        long ns = 100;
+        long i = 0;
+        while (ns < hour) {
+            
+            ns = ns*4;  
+            n *= 2;
+            i++;
+            
+//            if (ns*4 >= hour) break;
+//            else {
+//                ns = ns*4;  
+//                n *= 2;
+//                i++;
+//            }
+        }
+        System.out.println("n = " + n);
+        System.out.println("ns = " + ns);
+        System.out.println("i = " + i);
+        
+        System.exit(0);
     } 
 }
