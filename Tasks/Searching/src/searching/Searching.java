@@ -1,8 +1,9 @@
-
 package searching;
 
+
+
 /**
- *
+ * 
  * @author Alexander
  */
 public class Searching {
