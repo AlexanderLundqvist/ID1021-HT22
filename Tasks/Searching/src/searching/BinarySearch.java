@@ -1,24 +1,36 @@
 package searching;
 
-/*********************************** README ************************************
-*
-* Title placeholder
-* @author Alexander Lundqvist
-* Created: 02-09-2022
-*
-* About this class:
-*
-*
-* Based on:
-* <a href="">Link</a>
-*
-*******************************************************************************/
+import java.util.*;
 
 public class BinarySearch {
     
     // Default constructor
     public BinarySearch() {
     }
+    
+    public boolean search(int[] array, int key) {
+        int lo = 0; 
+        int hi = array.length - 1;
+        while (lo <= hi) {
+            int mid = lo + ((hi - lo) / 2);
+            if (array[mid] == key) return true;
+            else if (array[mid] > key && mid > lo) hi = mid - 1;
+            else if (array[mid] < key && mid < hi) lo = mid + 1;
+            else return false;
+        }
+        return false;
+    }
+    
+    public long benchmark(int[] array, int iterations) {
+        Random rnd = new Random();
+        long t_total = 0;
+        for (int i = 0; i < iterations; i++) {
+            long t_start = System.nanoTime();
+            search(array, rnd.nextInt(array.length - 1));
+            t_total += System.nanoTime() - t_start;
+        }
+        return (t_total/iterations);
+    }    
 
     /**
      * Main method with unit testing for the class.
