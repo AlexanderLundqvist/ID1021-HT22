@@ -31,6 +31,7 @@ public class LinearSearch {
         return false;
     }
     
+    
     public long benchmarkUnsorted(int[] array, int iterations) {
         Random rnd = new Random();
         long t_total = 0;

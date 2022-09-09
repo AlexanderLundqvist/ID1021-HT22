@@ -8,7 +8,7 @@ public class BinarySearch {
     public BinarySearch() {
     }
     
-    public boolean search(int[] array, int key) {
+    public static boolean search(int[] array, int key) {
         int lo = 0; 
         int hi = array.length - 1;
         while (lo <= hi) {
@@ -21,7 +21,7 @@ public class BinarySearch {
         return false;
     }
     
-    public long benchmark(int[] array, int iterations) {
+    public static long benchmark(int[] array, int iterations) {
         Random rnd = new Random();
         long t_total = 0;
         for (int i = 0; i < iterations; i++) {
