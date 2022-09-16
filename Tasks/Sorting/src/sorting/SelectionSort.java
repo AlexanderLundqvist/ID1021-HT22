@@ -49,15 +49,29 @@ public class SelectionSort {
         }
     }
     
+//    public long benchmark(int size, int iterations) {
+//        long t_total = 0;
+//        for (int i = 0; i < iterations; i++) {
+//            int[] array = unsortedArray(size); 
+//            long t_start = System.nanoTime();
+//            sort(array);
+//            t_total += System.nanoTime() - t_start;
+//        }
+//        return (t_total/iterations);
+//    }
+    
     public long benchmark(int size, int iterations) {
-        long t_total = 0;
+        long min = Long.MAX_VALUE;
         for (int i = 0; i < iterations; i++) {
             int[] array = unsortedArray(size); 
             long t_start = System.nanoTime();
             sort(array);
-            t_total += System.nanoTime() - t_start;
+            long t = System.nanoTime() - t_start;
+            if (t < min) {
+                min = t;
+            }
         }
-        return (t_total/iterations);
+        return min;
     }
     
     /**

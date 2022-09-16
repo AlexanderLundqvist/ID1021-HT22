@@ -65,17 +65,6 @@ public class MergeSort {
         sort(array, aux, 0, array.length - 1);
     }
     
-//    public long benchmark(int size, int iterations) {
-//        long t_total = 0;
-//        for (int i = 0; i < iterations; i++) {
-//            int[] array = unsortedArray(size); 
-//            long t_start = System.nanoTime();
-//            sort(array);
-//            t_total += System.nanoTime() - t_start;
-//        }
-//        return (t_total/iterations);
-//    }
-    
     public long benchmark(int size, int iterations) {
         long min = Long.MAX_VALUE;
         for (int i = 0; i < iterations; i++) {
