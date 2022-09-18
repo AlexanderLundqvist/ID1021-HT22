@@ -6,65 +6,54 @@ package assignment5;
  * @author Alexander
  */
 public class LinkedList{
-    int head;
-    LinkedList tail;
+    private int size;
+    private Node head; // Points to the top of the stack
     
-    
-    public LinkedList () {
+    /**
+     * Helper node class.
+     */
+    private class Node {
+        private int value;
+        private Node next;
         
-    }
-    
-    public LinkedList (int item) {
-        
-    }
-    
-    public int GetHead () {
-        return this.head;
-    }
-    
-    public LinkedList GetTail() {
-        return this.tail;
-    }
-    
-    public void append (LinkedList b) {
-        LinkedList nxt = this;
-        while (nxt.tail != null) {
-            nxt = nxt.tail;
+        public Node(int value, Node node) {
+            this.value = value;
+            this.next = node;
         }
-        nxt.tail = b;
+        
+        public int getValue() {
+            return this.value;
+        }
+    }
+    
+    public LinkedList() {
+        this.size = 0;
+        this.head = null;
+    }
+    
+    public int size() {
+        return this.size;
+    }
+    
+    public void push(int value) {
+        Node newHead = new Node(value, this.head);
+        this.head = newHead;
+        size++;
+    }
+    
+    public Node pop() {
+        Node popped = head;
+        this.head = head.next;
+        size--;
+        return popped;
     }
 
-    public void listToString () {
-        StringBuilder formatedString = new StringBuilder();
-        int counter = 0;
-        for (Item item : this) {
-            counter++;
-            if (item != null) {
-                formatedString.append("[");
-                formatedString.append(item);
-                formatedString.append("]");
-                if (counter < size) {
-                    formatedString.append(","); 
-                }
-            }
+    public void listToString() {
+        while() {
+            
         }
-        formatedString.append("} -> Sentinel");
-        System.out.println(formatedString.toString());
     }
     
-    public long benchmark(int size, int iterations) {
-        long min = Long.MAX_VALUE;
-        for (int i = 0; i < iterations; i++) {
-            long t_start = System.nanoTime();
-            //sort(array);
-            long t = System.nanoTime() - t_start;
-            if (t < min) {
-                min = t;
-            }
-        }
-        return min;
-    }
-
     /**
      * Main method with unit testing for the class.
      * 
