@@ -1,5 +1,7 @@
 package assignment5;
 
+import java.util.*;
+
 /**
  * A simple linked list.
  * 
@@ -51,12 +53,30 @@ public class LinkedList{
             System.out.println("The list is empty!");
             return null;
         }
-        Node popped = head;
+        Node popped = this.head;
         this.head = head.next;
         size--;
         return popped;
     }
-
+    
+    
+    public void appendLast(LinkedList list) {
+        Node current = this.head;
+        while(current.next != null) {
+            current = current.next;
+        }
+        current.next = list.head;
+    }
+    
+    public void appendFirst(LinkedList list) {
+        Node current = list.head;
+        while(current.next != null) {
+            current = current.next;
+        }
+        current.next = this.head;
+        this.head = list.head;
+    }
+    
     public void print() {
         if(isEmpty()) System.out.println("The list is empty!");
         else {
@@ -69,6 +89,34 @@ public class LinkedList{
         }
     }
     
+//    public long benchmark(int size, int iterations) {
+//        long t_total = 0;
+//        Random rand = new Random();
+//        for (int i = 0; i < iterations; i++) {
+//            LinkedList list = new LinkedList(); 
+//            long t_start = System.nanoTime();
+//            for (int j = 0; j < size; j++) {
+//                list.push(rand.nextInt(size));
+//            }
+//            t_total += System.nanoTime() - t_start;
+//        }
+//        return t_total/iterations;
+//    }
+    
+    public long benchmark(int size, int iterations) {
+        long t_total = 0;
+        Random rand = new Random();
+        for (int i = 0; i < iterations; i++) {
+            LinkedList list = new LinkedList();
+            for (int j = 0; j < size; j++) {
+                long t_start = System.nanoTime();
+                list.push(rand.nextInt(size));
+                t_total += System.nanoTime() - t_start;
+            }
+        }
+        return (t_total/size)/iterations;
+    }
+    
     /**
      * Main method with unit testing for the class.
      * 
@@ -76,6 +124,7 @@ public class LinkedList{
      */    
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
+        LinkedList listAppend = new LinkedList();
         
         list.print();
         System.out.println();
@@ -99,5 +148,16 @@ public class LinkedList{
         System.out.println();
         list.print();
         
+        System.out.println();
+        list.push(1);
+        list.push(2);
+        list.push(3);
+        listAppend.push(4);
+        listAppend.push(5);
+        listAppend.push(6);
+        list.appendFirst(listAppend);
+        //list.appendLast(listAppend);
+        list.print();
+        System.out.println();
     }
 }
