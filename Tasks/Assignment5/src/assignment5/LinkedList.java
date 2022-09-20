@@ -61,24 +61,33 @@ public class LinkedList{
     
     
     public void appendLast(LinkedList list) {
-        Node current = this.head;
-        while(current.next != null) {
-            current = current.next;
+        if(list.head == null) System.out.println("The list you want to append is empty!");
+        if(this.head == null) System.out.println("The list you want to append to is empty!");
+        else {
+            Node current = this.head;
+            while(current.next != null) {
+                current = current.next;
+            }
+            current.next = list.head;
         }
-        current.next = list.head;
     }
     
+    // Use this to achieve what assignment calls for, I guess
     public void appendFirst(LinkedList list) {
-        Node current = list.head;
-        while(current.next != null) {
-            current = current.next;
+        if(list.head == null) System.out.println("The list you want to append is empty!");
+        if(this.head == null) System.out.println("The list you want to append to is empty!");
+        else {
+            Node current = list.head;
+            while(current.next != null) {
+                current = current.next;
+            }
+            current.next = this.head;
+            this.head = list.head;
         }
-        current.next = this.head;
-        this.head = list.head;
     }
     
     public void print() {
-        if(isEmpty()) System.out.println("The list is empty!");
+        if(isEmpty()) System.out.println("Unable to print empty list!");
         else {
             System.out.println(head.getValue() + " <- Top of the stack");
             Node current = head.next;
@@ -103,18 +112,29 @@ public class LinkedList{
 //        return t_total/iterations;
 //    }
     
-    public long benchmark(int size, int iterations) {
+    public long benchmark(int static_size, int size, int iterations) {
         long t_total = 0;
         Random rand = new Random();
         for (int i = 0; i < iterations; i++) {
-            LinkedList list = new LinkedList();
-            for (int j = 0; j < size; j++) {
-                long t_start = System.nanoTime();
-                list.push(rand.nextInt(size));
-                t_total += System.nanoTime() - t_start;
+            
+            int s;
+            
+            LinkedList static_list = new LinkedList();
+            for(s = 0; s < static_size; s++) {
+                static_list.push(s+1);
             }
+            
+            LinkedList list = new LinkedList();
+            for(int l = 0; l < size; l++) {
+                list.push(s+2);
+            }
+            
+            long t_start = System.nanoTime();
+            static_list.appendFirst(list);
+            t_total += System.nanoTime() - t_start;
+            
         }
-        return (t_total/size)/iterations;
+        return t_total/iterations;
     }
     
     /**
