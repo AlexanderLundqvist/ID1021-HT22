@@ -98,45 +98,6 @@ public class LinkedList{
         }
     }
     
-//    public long benchmark(int size, int iterations) {
-//        long t_total = 0;
-//        Random rand = new Random();
-//        for (int i = 0; i < iterations; i++) {
-//            LinkedList list = new LinkedList(); 
-//            long t_start = System.nanoTime();
-//            for (int j = 0; j < size; j++) {
-//                list.push(rand.nextInt(size));
-//            }
-//            t_total += System.nanoTime() - t_start;
-//        }
-//        return t_total/iterations;
-//    }
-    
-    public long benchmark(int static_size, int size, int iterations) {
-        long t_total = 0;
-        Random rand = new Random();
-        for (int i = 0; i < iterations; i++) {
-            
-            int s;
-            
-            LinkedList static_list = new LinkedList();
-            for(s = 0; s < static_size; s++) {
-                static_list.push(s+1);
-            }
-            
-            LinkedList list = new LinkedList();
-            for(int l = 0; l < size; l++) {
-                list.push(s+2);
-            }
-            
-            long t_start = System.nanoTime();
-            static_list.appendFirst(list);
-            t_total += System.nanoTime() - t_start;
-            
-        }
-        return t_total/iterations;
-    }
-    
     /**
      * Main method with unit testing for the class.
      * 
