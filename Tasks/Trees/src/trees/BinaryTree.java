@@ -1,5 +1,7 @@
 package trees;
 
+import java.util.*;
+
 public class BinaryTree {
     private Node root;
     
@@ -48,7 +50,15 @@ public class BinaryTree {
         else              return node.value; // Om värdet är lika så har vi kommit till rätt nod och returnerar det värdet
     }
     
-    public Long benchmark() {
+    public Long benchmark(Integer[] array, int iterations) {     
+        Random rnd = new Random();
+        long t_total = 0;
+        for (int i = 0; i < iterations; i++) {
+            long t_start = System.nanoTime();
+            //search(array, rnd.nextInt(array.length - 1));
+            t_total += System.nanoTime() - t_start;
+        }
+        //return (t_total/iterations);
         return 0L;
     }
     

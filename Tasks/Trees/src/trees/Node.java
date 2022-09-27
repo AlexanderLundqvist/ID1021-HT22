@@ -14,6 +14,21 @@ public class Node {
         this.key    = key;
         this.value  = value;
         this.left   = this.right = null;
-    }  
-
+    }
+    
+    /**
+     * Prints current node
+     */
+    public void print() {
+        System.out.println(" Key: " + key + "\tValue: " + value);
+    }
+    
+    /**
+     * Should only be performed on root node
+     */
+    public void DFSprint() {
+        if(left != null) left.print();
+        System.out.println(" key: " + key + "\tvalue: " + value);
+        if(right != null) right.print();  
+    }
 }
