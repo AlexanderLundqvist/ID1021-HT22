@@ -7,10 +7,10 @@ package trees;
  */
 public class Node {
     public Integer key;
-    public Integer value;
+    public String value;
     public Node left, right;
         
-    public Node(Integer key, Integer value) {
+    public Node(Integer key, String value) {
         this.key    = key;
         this.value  = value;
         this.left   = this.right = null;
@@ -20,7 +20,7 @@ public class Node {
      * Prints current node
      */
     public void print() {
-        System.out.println(" Key: " + key + "\tValue: " + value);
+        System.out.println("Key: " + key + "\tValue: " + value);
     }
     
     /**
@@ -28,7 +28,7 @@ public class Node {
      */
     public void DFSprint() {
         if(left != null) left.print();
-        System.out.println(" key: " + key + "\tvalue: " + value);
+        System.out.println("Key: " + key + "\tValue: " + value);
         if(right != null) right.print();  
     }
 }

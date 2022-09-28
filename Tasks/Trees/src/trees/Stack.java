@@ -34,7 +34,6 @@ public class Stack<Item> {
             newStack[i] = this.stack[i];
         }
         this.stack = newStack;
-        newStack = null;
     }
     
     public int size() {

@@ -2,18 +2,18 @@ package trees;
 
 import java.util.*;
 
-public class BinaryTree {
+public class BinaryTree implements Iterable<Integer>{
     private Node root;
     
     public BinaryTree() {
         root = null;
     }
     
-    public void put(Integer key, Integer value) {
+    public void put(Integer key, String value) {
         root = put(root, key, value);
     }
 
-    private Node put(Node node, Integer key, Integer value){
+    private Node put(Node node, Integer key, String value){
         if (node == null) return new Node(key, value); // Om den aktuella noden är tom, sätt in en ny nod
 
         int cmp = key.compareTo(node.key); // Jämför input key med aktuella nodens key
@@ -31,11 +31,11 @@ public class BinaryTree {
         return node; // Returnera den noden så att trädet resetar sina länkar korrekt när vi rekurserar tillbaka
     }
     
-    public Integer get(Integer key) {
+    public String get(Integer key) {
         return get(root, key);
     }
 
-    private Integer get(Node node, Integer key) {
+    private String get(Node node, Integer key) {
         if (node == null) return null;
         int cmp = key.compareTo(node.key); // Jämför med den inskickade noden
         if      (cmp < 0) return get(node.left, key); // Om inskickad key är mindre än nodens key
@@ -50,16 +50,9 @@ public class BinaryTree {
         else              return node.value; // Om värdet är lika så har vi kommit till rätt nod och returnerar det värdet
     }
     
-    public Long benchmark(Integer[] array, int iterations) {     
-        Random rnd = new Random();
-        long t_total = 0;
-        for (int i = 0; i < iterations; i++) {
-            long t_start = System.nanoTime();
-            //search(array, rnd.nextInt(array.length - 1));
-            t_total += System.nanoTime() - t_start;
-        }
-        //return (t_total/iterations);
-        return 0L;
+    @Override
+    public Iterator<Integer> iterator() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     /**
@@ -68,7 +61,13 @@ public class BinaryTree {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Unit tests go here
+        BinaryTree tree = new BinaryTree();
+        tree.put(5,"AAA");
+        tree.put(2,"BBB");
+        tree.put(1,"CCC");
+        tree.put(8,"DDD");
+        tree.put(6,"EEE");
+        tree.put(3,"FFF");
+        //for (int i : tree) System.out.println("next value " + i);
     }
-
 }
