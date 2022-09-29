@@ -3,7 +3,7 @@ package trees;
 import java.util.*;
 
 public class BinaryTree implements Iterable<Integer>{
-    private Node root;
+    public Node root;
     
     public BinaryTree() {
         root = null;
@@ -12,7 +12,13 @@ public class BinaryTree implements Iterable<Integer>{
     public void put(Integer key, String value) {
         root = put(root, key, value);
     }
-
+    
+    public void put(Integer[] keys, String[] values) {
+        for(int i = 0; i < keys.length; i++) {
+            put(keys[i], values[i]);
+        }
+    }
+    
     private Node put(Node node, Integer key, String value){
         if (node == null) return new Node(key, value); // Om den aktuella noden är tom, sätt in en ny nod
 
@@ -52,7 +58,42 @@ public class BinaryTree implements Iterable<Integer>{
     
     @Override
     public Iterator<Integer> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new TreeIterator();
+    }
+    
+    /**
+     * 
+     */
+    public class TreeIterator implements Iterator<Integer> {
+        private Node next;
+        private Stack<Node> stack;
+
+        public TreeIterator() {
+            this.stack = new Stack<Node>();
+            this.stack.push(root);
+            this.next = root.left; 
+        }
+
+        @Override
+        public boolean hasNext() {
+            return this.next != null;
+        }
+
+        @Override
+        public Integer next() {
+            if(hasNext()) {
+                this.stack.push(next);
+                this.next = next.left;
+                next
+            }
+            
+            if(right != null) right.DFSprint();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
     
     /**

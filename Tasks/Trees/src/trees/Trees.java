@@ -62,28 +62,23 @@ public class Trees {
         return keys;
     }
     
+    /**
+     * Generates a sorted integer array.
+     * 
+     * @param size the size of the array
+     * @return the generated array
+     */
+    private static Integer[] sortedIntegerArray(int size) {
+        Integer[] array = new Integer[size];
+        int next = 0;
+        for (int i = 0; i < size ; i++) {
+            next += rand.nextInt(10) + 1;
+            array[i] = next;
+        }
+        return array;
+    }
     
-//    public static Long benchmarkBT(int treeSize, int stringLength, int iterations) {     
-//        // Create new tree and populate it
-//        BinaryTree bt = new BinaryTree();
-//        for(int i = 0; i < treeSize; i++) {
-//            bt.put(generateRandomKey(treeSize), generateRandomLetters(stringLength));
-//        }
-//        
-//        // Measure time it takes to search for a random key value pair
-//        long min = Long.MAX_VALUE;
-//        for(int i = 0; i < iterations; i++) {
-//            long startTime = System.nanoTime();
-//            bt.get(rand.nextInt(treeSize - 1));
-//            long totalTime = System.nanoTime() - startTime;
-//            if (totalTime < min) {
-//                min = totalTime;
-//            }
-//        }
-//        return min;
-//    }
-    
-    public static Long benchmarkBT(int treeSize, int stringLength, int iterations) {     
+    private static Long benchmarkBT(int treeSize, int stringLength, int iterations) {     
         // Create new tree and populate it
         BinaryTree bt = new BinaryTree();
         Integer[] keys = generateRandomKeyArray(treeSize);
@@ -104,29 +99,43 @@ public class Trees {
     
     /**
      * Controls the flow of the program.
+     * 
      * @param args the command line arguments takes no arguments
      */
     public static void main(String[] args) {
         int iterations  = 100000;
-        //BinarySearch bs = new BinarySearch();
-        System.out.println(generateRandomLetters(3));
+        BinarySearch binarySearch = new BinarySearch();
         
         // Binary tree benchmark
-        int stringLength = 3;
-        int treeSize = 100;
-        for (int i = 0; i < 300; i++) {
-            System.out.println(benchmarkBT(treeSize, stringLength, iterations));
-            treeSize += 100;
-        }
+//        int stringLength = 3;
+//        int treeSize = 100;
+//        for (int i = 0; i < 300; i++) {
+//            System.out.println(benchmarkBT(treeSize, stringLength, iterations));
+//            treeSize += 100;
+//        }
 
         // Binary search benchmark
-//        int bs_size = 100;
-//        for (int i = 0; i < 100; i++) {
-//            Integer[] bs_array = generateIntegerArray(bs_size);
-//            System.out.println(bs.benchmark(bs_array, iterations));
-//            bs_size += 100;
-//        }
-          
+//        int size = 100;
+//        for (int i = 0; i < 300; i++) {
+//            Integer[] array = sortedIntegerArray(size);
+//            System.out.println(binarySearch.benchmark(array, iterations));
+//            size += 100;
+//        } 
+        
+        // DFS print
+//        BinaryTree DFS = new BinaryTree();
+//        int DFSSize = 10;
+//        DFS.put(generateRandomKeyArray(DFSSize), generateRandomLettersArray(DFSSize, 1));
+//        DFS.root.DFSprint();
+        
+        // Iterator test
+        BinaryTree iteratorTest = new BinaryTree();
+        iteratorTest.put(5,"A");
+        iteratorTest.put(2,"B");
+        iteratorTest.put(1,"C");
+        iteratorTest.put(8,"D");
+        iteratorTest.put(6,"E");
+        iteratorTest.put(3,"F");
+        for (int i : iteratorTest) System.out.println("Next value " + i);
     }
-
 }

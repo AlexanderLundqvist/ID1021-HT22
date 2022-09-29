@@ -27,8 +27,8 @@ public class Node {
      * Should only be performed on root node
      */
     public void DFSprint() {
-        if(left != null) left.print();
+        if(left != null) left.DFSprint();
         System.out.println("Key: " + key + "\tValue: " + value);
-        if(right != null) right.print();  
+        if(right != null) right.DFSprint();  
     }
 }
