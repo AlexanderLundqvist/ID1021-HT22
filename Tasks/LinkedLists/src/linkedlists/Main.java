@@ -1,4 +1,4 @@
-package assignment5;
+package linkedlists;
 import java.util.*;
 
 /**
@@ -6,7 +6,7 @@ import java.util.*;
  * 
  * @author Alexander Lundqvist
  */
-public class Assignment5 {
+public class Main {
     
     private static int[] unsortedArray(int size) {
             Random rand = new Random();
