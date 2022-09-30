@@ -2,7 +2,7 @@ package trees;
 
 import java.util.*;
 
-public class BinaryTree implements Iterable<Integer>{
+public class BinaryTree implements Iterable<String>{
     public Node root;
     
     public BinaryTree() {
@@ -57,37 +57,49 @@ public class BinaryTree implements Iterable<Integer>{
     }
     
     @Override
-    public Iterator<Integer> iterator() {
+    public Iterator<String> iterator() {
         return new TreeIterator();
     }
     
     /**
      * 
      */
-    public class TreeIterator implements Iterator<Integer> {
-        private Node next;
+    public class TreeIterator implements Iterator<String> {
+        private Node current;
         private Stack<Node> stack;
 
         public TreeIterator() {
             this.stack = new Stack<Node>();
-            this.stack.push(root);
-            this.next = root.left; 
+            this.current = root;       
+            
+            // Travel down left side
+            while (this.current != null) {
+                this.stack.push(this.current);
+                this.current = this.current.left;
+            }
         }
 
         @Override
         public boolean hasNext() {
-            return this.next != null;
+            return !this.stack.isEmpty();
         }
 
         @Override
-        public Integer next() {
-            if(hasNext()) {
-                this.stack.push(next);
-                this.next = next.left;
-                next
-            }
+        public String next() {
+            if (!hasNext()) throw new NoSuchElementException();
             
-            if(right != null) right.DFSprint();
+            Node temp = this.stack.pop();
+            String value = temp.value;
+            
+            if (temp.right != null) {
+                this.current = temp.right;
+                while (this.current != null) {
+                    this.stack.push(this.current);
+                    this.current = this.current.left;
+                }
+            } 
+            
+            return value;        
         }
 
         @Override
@@ -109,6 +121,6 @@ public class BinaryTree implements Iterable<Integer>{
         tree.put(8,"DDD");
         tree.put(6,"EEE");
         tree.put(3,"FFF");
-        //for (int i : tree) System.out.println("next value " + i);
+        for (String value : tree) System.out.println("Next value: " + value);
     }
 }

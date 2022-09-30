@@ -40,6 +40,10 @@ public class Stack<Item> {
         return (this.stack.length);
     }
     
+    public boolean isEmpty() {
+        return this.stackPointer == 0;
+    }
+    
     // Use this if generics don't work.
     /*
     private Node[] stack;
