@@ -9,42 +9,74 @@ import java.util.*;
  * @author Alexander Lundqvist
  */
 public class DynamicQueue<Item> {
-    private Item[] stack;
-    private int stackPointer;   
+    private static final int INIT_CAPACITY = 8;
+    private Item[] queue;
+    private int size;
+    private int indexFirst, indexLast;   
     
+    /**
+     * Initializes an empty queue.
+     */
     public DynamicQueue() {
-        this.stack = (Item[]) new Object[1];
-        this.stackPointer = 0;
+        this.queue = (Item[]) new Object[INIT_CAPACITY];
+        this.size = 0;
+        this.indexFirst = 0; 
+        this.indexLast = 0; 
     }
     
-    public void push(Item item) {
-        if (this.stackPointer == size())
-            resize(2*size());
-        this.stack[this.stackPointer++] = item;
+    /**
+     * Adds an element to the back of the queue.
+     * 
+     * @param value the value of the element
+     */
+    public void enqueue(Item item) {
+
     }
     
-    public Item pop() {
-        Item poppedItem = this.stack[--this.stackPointer];
-        this.stack[this.stackPointer] = null;  
-        if (this.stackPointer > 0 && this.stackPointer == size()/4)
-            resize(size()/2);
-        return poppedItem;
+    /**
+     * Removes the first element in the queue.
+     * 
+     * @return the de-queued element.
+     */
+    public Item dequeue() {
+
     }
     
     private void resize(int amount) {
         Item[] newStack = (Item[]) new Object[amount];   
         for (int i = 0; i < this.stackPointer; i++) {
-            newStack[i] = this.stack[i];
+            newStack[i] = this.queue[i];
         }
-        this.stack = newStack;
+        this.queue = newStack;
     }
     
+    /**
+     * Returns the size of the queue
+     * 
+     * @return the size
+     */
     public int size() {
-        return (this.stack.length);
+        return this.size;
     }
     
+    /**
+     * Tells if the queue is empty or not.
+     * 
+     * @return true if empty, else false
+     */
     public boolean isEmpty() {
-        return this.stackPointer == 0;
+        return this.size == 0;
+    }
+    
+    /**
+     * Prints the contents of the queue.
+     */
+    public void print() {
+        System.out.println("\nPrinting the contents of the queue:\n");
+        for (int i = 0; i < this.size; i++) {
+            System.out.println("Value: " + queue[i]);
+        }
+        System.out.println();
     }
 
     /**
@@ -64,7 +96,7 @@ public class DynamicQueue<Item> {
         queue.print();
         queue.dequeue();
         queue.dequeue();
-        queue.dequeue(); // Should give error
+        //queue.dequeue(); // Should give error
     }
 
 }

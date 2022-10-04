@@ -9,6 +9,19 @@ public class BinaryTree implements Iterable<String>{
         root = null;
     }
     
+    // Helper node class
+    public class Node {
+        public Integer key;
+        public String value;
+        public Node left, right;
+
+        public Node(Integer key, String value) {
+            this.key    = key;
+            this.value  = value;
+            this.left   = this.right = null;
+        }
+    }
+    
     public void put(Integer key, String value) {
         root = put(root, key, value);
     }
