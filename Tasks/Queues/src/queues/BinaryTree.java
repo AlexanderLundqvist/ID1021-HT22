@@ -2,7 +2,7 @@ package queues;
 
 import java.util.*;
 
-public class BinaryTree implements Iterable<String>{
+public class BinaryTree<Item> implements Iterable<Item>{
     public Node root;
     
     public BinaryTree() {
@@ -12,27 +12,27 @@ public class BinaryTree implements Iterable<String>{
     // Helper node class
     public class Node {
         public Integer key;
-        public String value;
+        public Item value;
         public Node left, right;
 
-        public Node(Integer key, String value) {
+        public Node(Integer key, Item value) {
             this.key    = key;
             this.value  = value;
             this.left   = this.right = null;
         }
     }
     
-    public void put(Integer key, String value) {
+    public void put(Integer key, Item value) {
         root = put(root, key, value);
     }
     
-    public void put(Integer[] keys, String[] values) {
+    public void put(Integer[] keys, Item[] values) {
         for(int i = 0; i < keys.length; i++) {
             put(keys[i], values[i]);
         }
     }
     
-    private Node put(Node node, Integer key, String value){
+    private Node put(Node node, Integer key, Item value){
         if (node == null) return new Node(key, value); // Om den aktuella noden är tom, sätt in en ny nod
 
         int cmp = key.compareTo(node.key); // Jämför input key med aktuella nodens key
@@ -50,11 +50,11 @@ public class BinaryTree implements Iterable<String>{
         return node; // Returnera den noden så att trädet resetar sina länkar korrekt när vi rekurserar tillbaka
     }
     
-    public String get(Integer key) {
+    public Item get(Integer key) {
         return get(root, key);
     }
 
-    private String get(Node node, Integer key) {
+    private Item get(Node node, Integer key) {
         if (node == null) return null;
         int cmp = key.compareTo(node.key); // Jämför med den inskickade noden
         if      (cmp < 0) return get(node.left, key); // Om inskickad key är mindre än nodens key
@@ -66,53 +66,37 @@ public class BinaryTree implements Iterable<String>{
                                                        // Kalla igen rekursit fast nu med höger child
                                                        // då alla keys till höger är större
 
-        else              return node.value; // Om värdet är lika så har vi kommit till rätt nod och returnerar det värdet
+        else              return (Item) node.value; // Om värdet är lika så har vi kommit till rätt nod och returnerar det värdet
     }
     
     @Override
-    public Iterator<String> iterator() {
+    public Iterator<Item> iterator() {
         return new TreeIterator();
     }
-    
-    /**
-     * 
-     */
-    public class TreeIterator implements Iterator<String> {
-        private Node current;
-        private Stack<Node> stack;
+
+    public class TreeIterator implements Iterator<Item> {
+        private LinkedQueue<Node> queue;
 
         public TreeIterator() {
-            this.stack = new Stack<Node>();
-            this.current = root;       
-            
-            // Travel down left side
-            while (this.current != null) {
-                this.stack.push(this.current);
-                this.current = this.current.left;
-            }
+            this.queue = new LinkedQueue<Node>();      
+            queue.enqueue(root);
         }
 
         @Override
         public boolean hasNext() {
-            return !this.stack.isEmpty();
+            return !this.queue.isEmpty();
         }
 
         @Override
-        public String next() {
+        public Item next() {
             if (!hasNext()) throw new NoSuchElementException();
             
-            Node temp = this.stack.pop();
-            String value = temp.value;
+            Node current = queue.dequeue();
             
-            if (temp.right != null) {
-                this.current = temp.right;
-                while (this.current != null) {
-                    this.stack.push(this.current);
-                    this.current = this.current.left;
-                }
-            } 
+            if (current.left  != null)   queue.enqueue(current.left);
+            if (current.right != null)   queue.enqueue(current.right);
             
-            return value;        
+            return current.value;        
         }
 
         @Override

@@ -10,8 +10,8 @@ import java.util.*;
  */
 public class DynamicQueue<Item> {
     private static final int INIT_CAPACITY = 8;
-    private Item[] queue;
-    private int size;
+    private Item[] queue; // Allocated queue space
+    private int size; // Amount of entries in queue
     private int indexFirst, indexLast;   
     
     /**
@@ -29,8 +29,11 @@ public class DynamicQueue<Item> {
      * 
      * @param value the value of the element
      */
-    public void enqueue(Item item) {
-
+    public void enqueue(Item value) {
+        if(size == queue.length) resize(queue.length*2);
+        queue[indexLast++] = value;
+        if(indexLast == queue.length) indexLast = 0; // Wrap around
+        size++;
     }
     
     /**
@@ -39,15 +42,29 @@ public class DynamicQueue<Item> {
      * @return the de-queued element.
      */
     public Item dequeue() {
-
+        if (isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        Item dequeued = queue[indexFirst];
+        queue[indexFirst] = null;
+        indexFirst++;
+        size--;
+        // Wrap
+        if(indexFirst == queue.length) indexFirst = 0; 
+        
+        if (size > 0 && size == queue.length/4) resize(queue.length/2);
+        return dequeued;
     }
     
+    
     private void resize(int amount) {
-        Item[] newStack = (Item[]) new Object[amount];   
-        for (int i = 0; i < this.stackPointer; i++) {
-            newStack[i] = this.queue[i];
+        Item[] newQueue = (Item[]) new Object[amount];
+        int first = indexFirst;
+        for (int i = 0; i < this.size; i++) {
+            newQueue[i] = this.queue[first++];
+            if (first == queue.length) first = 0; // Wrap around 
         }
-        this.queue = newStack;
+        this.queue = newQueue;
+        indexFirst = 0;
+        indexLast = size;
     }
     
     /**
@@ -85,7 +102,7 @@ public class DynamicQueue<Item> {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        DynamicQueue queue = new LinkedQueue();
+        DynamicQueue queue = new DynamicQueue();
         queue.enqueue("A");
         queue.enqueue("B");
         queue.enqueue("C");

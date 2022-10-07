@@ -23,6 +23,43 @@ public class LinkedQueue<Item> implements Iterable<Item>{
     }
     
     /**
+    * This class is a utility class that implements a node structure.
+    *
+    */
+    public class Node {
+        public Item value;
+        public Node next;
+
+        /**
+         * Initializes a free floating node.
+         * 
+         * @param value the value of the node
+         */
+        public Node(Item value) {
+            this.value = value;
+            this.next = null;
+        }
+
+        /**
+         * Initializes a node with reference to the following node.
+         * 
+         * @param value the value of the node
+         * @param node a pointer to next node
+         */
+        public Node(Item value, Node node) {
+            this.value = value;
+            this.next = node;
+        }
+
+        /**
+         * Prints current node
+         */
+        public void print() {
+            System.out.println("Value: " + value);
+        }
+    }
+    
+    /**
      * Returns the size of the queue
      * 
      * @return the size
@@ -54,18 +91,15 @@ public class LinkedQueue<Item> implements Iterable<Item>{
         size++;
     }
     
-    /**
-     * Removes the first element in the queue.
-     * 
-     * @return the de-queued node.
-     */
-    public Node dequeue() {
+
+    public Item dequeue() {
         if(isEmpty()) throw new NoSuchElementException("Queue is empty!");
         Node dequeued = this.first;
-        this.first = first.next;
+        //Item val = dequeued.value;
+        this.first = this.first.next;
         size--;
         if (isEmpty()) this.last = null; // To completely "reset" the queue
-        return dequeued;
+        return dequeued.value;
     }
     
     /**
@@ -78,9 +112,9 @@ public class LinkedQueue<Item> implements Iterable<Item>{
     }
 
     private class LinkedIterator implements Iterator<Item> {
-        private Node<Item> current;
+        private Node current;
 
-        public LinkedIterator(Node<Item> first) {
+        public LinkedIterator(Node first) {
             current = first;
         }
 
