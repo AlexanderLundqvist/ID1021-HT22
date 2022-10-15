@@ -118,6 +118,6 @@ public class BinaryTree<Item> implements Iterable<Item>{
         tree.put(8,"DDD");
         tree.put(6,"EEE");
         tree.put(3,"FFF");
-        for (String value : tree) System.out.println("Next value: " + value);
+        for (String i : tree) System.out.println("Next value: " + i);
     }
 }
