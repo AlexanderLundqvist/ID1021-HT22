@@ -28,22 +28,32 @@ public class TreeHeap {
     }
     
     public void enqueue(Integer value) {
+        // Empty queue
         if(isEmpty()) {
             this.root = new Node(value);
         } 
         
-        //
+        // All other cases
         
         size++;
     }
     
     public Integer dequeue() {
-        if(isEmpty()) {
+        // Empty queueu
+        if (isEmpty()) {
             System.out.println("Queue is empty!");
             return null;
         }
+        // Only root node
+        if (this.root.leftBranch == null && this.root.rightBranch == null) {
+            Integer dequeuedValue = this.root.value;
+            this.root = null;
+            this.size = 0;
+            return dequeuedValue;
+        }
+        // All other cases
         
-        //
+        
         
         size--;
         return 0;

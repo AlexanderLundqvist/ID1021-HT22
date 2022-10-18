@@ -7,7 +7,7 @@ public class ArrayHeap {
     private int size; // Elements in the heap
     
     public ArrayHeap(int capacity) {
-        this.heap = new Integer[capacity];
+        this.heap = new Integer[capacity+1];
         this.size = 0;
     }
     
@@ -15,21 +15,39 @@ public class ArrayHeap {
         if (isFull()) System.out.println("Queue is full!");
         
         heap[++size] = value;
-        swim(size);
+        bubble(size);
 
         this.size++;
+    }
+    
+    private void bubble(int k) {
+        while (k > 1 && k/2 > k) {
+            swap(k/2, k);
+            k = k/2;
+        }
     }
     
     public Integer dequeue() {
         if (isEmpty()) System.out.println("Queue is empty!");
         
-        
-        
+        Integer min = this.heap[1];
+        swap(1, this.size--);
+        sink(1);
+        this.heap[this.size+1] = null;         
         this.size--;
-        return 0;
+        
+        return min;
     }
     
-    
+    private void sink(int k) {
+        while (2*k <= this.size) {
+            int j = 2*k;
+            if ((j < this.size) && j > (j+1)) j++;
+            if (!(k > j)) break;
+            swap(k, j);
+            k = j;
+        }
+    }
     
     private void swap(int a, int b) {
         Integer temp = this.heap[a];
@@ -57,7 +75,7 @@ public class ArrayHeap {
      * @param args takes no input arguments
      */    
     public static void main(String[] args) {
-        ArrayHeap test = new ArrayHeap(5);
+        ArrayHeap test = new ArrayHeap(10);
         test.enqueue(5);
         test.enqueue(1);
         test.enqueue(4);
