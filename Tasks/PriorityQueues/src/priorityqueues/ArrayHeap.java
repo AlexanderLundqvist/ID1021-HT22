@@ -4,19 +4,20 @@ import java.util.*;
 
 public class ArrayHeap {
     private Integer[] heap;
-    private int nodes; // Elements in the heap
+    private int size; // Elements in the heap
     
-    public ArrayHeap(int size) {
-        this.heap = new Integer[size];
-        this.nodes = 0;
+    public ArrayHeap(int capacity) {
+        this.heap = new Integer[capacity];
+        this.size = 0;
     }
     
     public void enqueue(Integer value) {
         if (isFull()) System.out.println("Queue is full!");
         
-        
-        
-        this.nodes++;
+        heap[++size] = value;
+        swim(size);
+
+        this.size++;
     }
     
     public Integer dequeue() {
@@ -24,23 +25,31 @@ public class ArrayHeap {
         
         
         
-        this.nodes--;
+        this.size--;
         return 0;
     }
     
-    public boolean isEmpty() {
-        return this.nodes == 0;
+    
+    
+    private void swap(int a, int b) {
+        Integer temp = this.heap[a];
+        this.heap[a] = this.heap[b];
+        this.heap[b] = temp;
     }
     
-    public boolean isFull() {
-        return this.nodes == this.heap.length;
+    private boolean isEmpty() {
+        return this.size == 0;
+    }
+    
+    private boolean isFull() {
+        return this.size == this.heap.length;
     }
     
     /**
      * Prints the contents of the queue.
      */
     public void print() {
-        
+        for(int i = 0; i < this.heap.length; i++) System.out.println(this.heap[i]);
     }
     
     /**
