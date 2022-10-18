@@ -17,9 +17,27 @@ import java.util.*;
 
 public class TreeHeap {
     private Node root;
+    private TreeHeap leftTree;
+    private TreeHeap rightHeap;
     
     // Default constructor
     public TreeHeap() {
+    }
+    
+    /**
+    * This class is a utility class that implements a node structure.
+    *
+    */
+    public class Node {
+        public Integer value;
+        public Node next;
+        public Node prev;
+
+        public Node(Integer value) {
+            this.value = value;
+            this.next = null;
+            this.prev = null;
+        }
     }
     
      /**
