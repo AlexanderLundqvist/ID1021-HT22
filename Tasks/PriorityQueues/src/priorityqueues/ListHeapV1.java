@@ -67,6 +67,7 @@ public class ListHeapV1 {
         if(isEmpty()) this.last = newNode;
         else {
             newNode.next = this.last;
+            this.last.prev = newNode;
             this.last = newNode;
         }
         this.size++;
@@ -82,14 +83,15 @@ public class ListHeapV1 {
             return current.value;
         }
         
-        Node min = current;
+        Node min = this.last;
         
-        while(current.next != null) {
+        while(current != null) {
             if (current.value < min.value) {
                 min = current;
             }
             current = current.next;
         }
+
         min.prev.next = min.next;
         this.size--;
         return min.value;
