@@ -12,7 +12,7 @@ public class ArrayHeap {
     }
     
     public void enqueue(Integer value) {
-        if (isFull()) throw new ArrayIndexOutOfBoundsException("Queue is full!");
+        if (isFull()) System.out.println("Queue is full!");
         
         
         
@@ -20,7 +20,7 @@ public class ArrayHeap {
     }
     
     public Integer dequeue() {
-        if (isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        if (isEmpty()) System.out.println("Queue is empty!");
         
         
         

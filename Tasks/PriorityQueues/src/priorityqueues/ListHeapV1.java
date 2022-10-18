@@ -58,7 +58,7 @@ public class ListHeapV1 {
     
 
     public boolean isEmpty() {
-        return last == null;
+        return this.last == null;
     }
     
     // O(1)
@@ -75,7 +75,10 @@ public class ListHeapV1 {
     
     // O(n)
     public Integer dequeue() {
-        if(isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        if(isEmpty()) {
+            System.out.println("Queue is empty!");
+            return null;
+        }
         Node current = this.last;
         // In case of only one element
         if (this.last.next == null) {
@@ -91,8 +94,13 @@ public class ListHeapV1 {
             }
             current = current.next;
         }
-
-        min.prev.next = min.next;
+        if (min.prev == null) {
+            this.last = min.next;
+            this.last.prev = null;
+        }
+        else {
+            min.prev.next = min.next;
+        }
         this.size--;
         return min.value;
     }
@@ -102,6 +110,10 @@ public class ListHeapV1 {
      * Prints the contents of the queue.
      */
     public void print() {
+        if(isEmpty()) {
+            System.out.println("Queue is empty!");
+            return;
+        }
         Node current = this.last;
         while(current != null) {
             System.out.println(current.value);

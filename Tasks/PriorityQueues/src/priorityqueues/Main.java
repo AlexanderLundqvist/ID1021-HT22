@@ -10,7 +10,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        int iterations  = 1000;
+        int iterations  = 100;
         Random rnd = new Random();        
         
         // ListHeapV1 enqueue

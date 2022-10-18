@@ -93,7 +93,10 @@ public class ListHeapV2 {
     
     // O(1)
     public Integer dequeue() {
-        if(isEmpty()) throw new NoSuchElementException("Queue is empty!");
+        if(isEmpty()) {
+            System.out.println("Queue is empty!");
+            return null;
+        }
         Integer dequeued = this.last.value;
         this.last = this.last.next;
         this.size--;
@@ -104,6 +107,10 @@ public class ListHeapV2 {
      * Prints the contents of the queue.
      */
     public void print() {
+        if(isEmpty()) {
+            System.out.println("Queue is empty!");
+            return;
+        }
         Node current = this.last;
         while(current != null) {
             System.out.println(current.value);
