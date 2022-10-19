@@ -5,27 +5,27 @@ import java.util.*;
 public class TreeHeap {
     private Node root;
     private int size;
-    private int leftSize;
-    private int rightSize;
+
     
     public TreeHeap() {
         this.root = null;
         this.size = 0;
-        this.leftSize = 0;
-        this.rightSize = 0;
     }
 
     public class Node {
-        public Integer value;
+        public Integer priority;
+        public int subNodes;
         public Node leftBranch;
         public Node rightBranch;
 
         public Node(Integer value) {
-            this.value = value;
+            this.priority = value;
+            this.subNodes = 0;
             this.rightBranch = null;
             this.rightBranch = null;
         }
     }
+    
     
     public void enqueue(Integer value) {
         // Empty queue
@@ -35,8 +35,11 @@ public class TreeHeap {
         
         // All other cases
         
+        
         size++;
     }
+    
+    // Recursive function?
     
     public Integer dequeue() {
         // Empty queueu
@@ -46,7 +49,7 @@ public class TreeHeap {
         }
         // Only root node
         if (this.root.leftBranch == null && this.root.rightBranch == null) {
-            Integer dequeuedValue = this.root.value;
+            Integer dequeuedValue = this.root.priority;
             this.root = null;
             this.size = 0;
             return dequeuedValue;
@@ -57,6 +60,10 @@ public class TreeHeap {
         
         size--;
         return 0;
+    }
+    
+    public void increment() {
+        
     }
     
     public boolean isEmpty() {

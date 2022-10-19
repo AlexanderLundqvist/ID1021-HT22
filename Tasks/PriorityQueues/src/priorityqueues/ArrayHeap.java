@@ -21,9 +21,9 @@ public class ArrayHeap {
     }
     
     private void bubble(int k) {
-        while (k > 1 && k/2 > k) {
-            swap(k/2, k);
-            k = k/2;
+        while (k > 1 && k-1/2 > k) {
+            swap(k-2/2, k);
+            k = k-1/2;
         }
     }
     
