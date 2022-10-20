@@ -13,14 +13,16 @@ public class TreeHeap {
     }
 
     public class Node {
-        public Integer priority;
+        public Integer value;
         public int subNodes;
+        public Node parent;
         public Node leftBranch;
         public Node rightBranch;
 
         public Node(Integer value) {
-            this.priority = value;
+            this.value = value;
             this.subNodes = 0;
+            this.parent = null;
             this.rightBranch = null;
             this.rightBranch = null;
         }
@@ -34,7 +36,13 @@ public class TreeHeap {
         } 
         
         // All other cases
+        if(this.root.value < value) {
+            
+        }
         
+        if(this.root.value >= value) {
+            
+        }
         
         size++;
     }
@@ -49,17 +57,16 @@ public class TreeHeap {
         }
         // Only root node
         if (this.root.leftBranch == null && this.root.rightBranch == null) {
-            Integer dequeuedValue = this.root.priority;
+            Integer dequeuedValue = this.root.value;
             this.root = null;
             this.size = 0;
             return dequeuedValue;
         }
         // All other cases
-        
-        
-        
+        Integer dequeuedValue = this.root.value;
+                
         size--;
-        return 0;
+        return dequeuedValue;
     }
     
     public void increment() {

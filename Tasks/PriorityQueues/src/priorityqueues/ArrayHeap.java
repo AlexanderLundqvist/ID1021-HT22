@@ -55,6 +55,59 @@ public class ArrayHeap {
         this.heap[b] = temp;
     }
     
+    private int parent(int index) {
+      return (index - 1) / 2;
+    }
+    
+    static int leftChild(int index) {
+      return ((2 * index) + 1);
+    }
+
+    static int rightChild(int index) {
+      return ((2 * index) + 2);
+    }
+    
+    static void shiftUp(int index) {
+      while (index > 0 && heap[parent(index)] < heap[index])
+      {
+        // Swap parent and current node
+        swap(parent(index), index);
+
+        // Update i to parent of i
+        index = parent(index);
+      }
+    }
+    
+    static void shiftDown(int i)
+    {
+      int maxIndex = i;
+
+      // Left Child
+      int l = leftChild(i);
+
+      if (l <= size &&
+          H[l] > H[maxIndex])
+      {
+        maxIndex = l;
+      }
+
+      // Right Child
+      int r = rightChild(i);
+
+      if (r <= size &&
+          H[r] > H[maxIndex])
+      {
+        maxIndex = r;
+      }
+
+      // If i not same as maxIndex
+      if (i != maxIndex)
+      {
+        swap(i, maxIndex);
+        shiftDown(maxIndex);
+      }
+    }
+    
     private boolean isEmpty() {
         return this.size == 0;
     }

@@ -26,3 +26,5 @@ Tasks/CalculatorPolishReverse/nbproject/private/private.properties
 Tasks/Searching/nbproject/private/private.properties
 Tasks/Trees/nbproject/private/private.properties
 /Tasks/PriorityQueues/dist/
+/Tasks/HashTables/build/
+/Tasks/HashTables/dist/
