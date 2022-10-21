@@ -46,8 +46,7 @@ public class HashTable {
     
     // Bad hashing function...
     private int hash(int key) {
-        int hashed = key;
-        hashed = hashed % this.mod;
+        int hashed = key % this.mod;
         return hashed;
     }
     

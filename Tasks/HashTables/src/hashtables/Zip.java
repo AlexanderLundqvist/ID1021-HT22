@@ -61,7 +61,7 @@ public class Zip {
         return false;
     }
     
-    public boolean linearSearch(Integer areaCode) {
+    public boolean linearSearchInt(Integer areaCode) {
         for(int i = 0; i < this.data.length; i++) {
             if(this.data[i].areaCodeInt.compareTo(areaCode) == 0) {
                 return true;
@@ -70,7 +70,7 @@ public class Zip {
         return false;
     }
     
-    public boolean binarySearch(Integer areaCode) {
+    public boolean binarySearchInt(Integer areaCode) {
         int lo = 0; 
         //int hi = this.data.length - 1;
         int hi = max;

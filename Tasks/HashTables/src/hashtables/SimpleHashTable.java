@@ -72,7 +72,7 @@ public class SimpleHashTable {
             data[index]++;
         }
         System.out.println();
-        System.out.println("Mod\t\t1 key\t\t2 keys\t\t3 keys\t\t4 keys");
+        System.out.println("Mod\t\tUnique\t\t2 keys\t\t3 keys\t\t4 keys");
         System.out.print(mod);
         for (int i = 0; i < 4; i++) {
             System.out.print("\t\t" + cols[i]);

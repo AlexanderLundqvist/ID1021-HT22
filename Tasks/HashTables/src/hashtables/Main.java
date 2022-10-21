@@ -38,7 +38,7 @@ public class Main {
         long t_min = Long.MAX_VALUE;
         for (int i = 0; i < iterations; i++) {
             long t_start = System.nanoTime();
-            zip.linearSearch(areaCode);
+            zip.linearSearchInt(areaCode);
             long t_total = System.nanoTime() - t_start;
             if (t_total < t_min) {
                 t_min = t_total;
@@ -52,7 +52,7 @@ public class Main {
         long t_min = Long.MAX_VALUE;
         for (int i = 0; i < iterations; i++) {
             long t_start = System.nanoTime();
-            zip.binarySearch(areaCode);
+            zip.binarySearchInt(areaCode);
             long t_total = System.nanoTime() - t_start;
             if (t_total < t_min) {
                 t_min = t_total;
@@ -155,21 +155,26 @@ public class Main {
     public static void main(String[] args) {
         int iterations  = 1000; 
         
-        // Task 1: Zip   
+        // Task 1: Zip
+        benchmarkLinearString(iterations, "111 15");
         System.out.println("Linear search string(111 15): " + benchmarkLinearString(iterations, "111 15"));
         System.out.println("Linear search string(984 99): " + benchmarkLinearString(iterations, "984 99"));
         
+        benchmarkBinaryString(iterations, "111 15");
         System.out.println("Binary search string(111 15): " + benchmarkBinaryString(iterations, "111 15"));
         System.out.println("Binary search string(984 99): " + benchmarkBinaryString(iterations, "984 99"));
         
+        benchmarkLinearInteger(iterations, 11115);
         System.out.println("Linear search integer(111 15): " + benchmarkLinearInteger(iterations, 11115));
         System.out.println("Linear search integer(984 99): " + benchmarkLinearInteger(iterations, 98499));
         
+        benchmarkBinaryInteger(iterations, 11115);
         System.out.println("Binary search integer(111 15): " + benchmarkBinaryInteger(iterations, 11115));
         System.out.println("Binary search integer(984 99): " + benchmarkBinaryInteger(iterations, 98499));
         
         
         // Task 2: Zip improved
+        benchmarkLookup(iterations, 11115);
         System.out.println("Lookup key(111 15): " + benchmarkLookup(iterations, 11115));
         System.out.println("Lookup key(984 99): " + benchmarkLookup(iterations, 98499));
         
@@ -183,12 +188,12 @@ public class Main {
         28627
         31327
         */
-        benchmarkCollisions();
-        benchmarkSimpleHashLookup(iterations, 10000, 11115);
-        benchmarkSimpleHashLookup(iterations, 10000, 98499);
+        //benchmarkCollisions();
+        //benchmarkSimpleHashLookup(iterations, 10000, 11115);
+        //benchmarkSimpleHashLookup(iterations, 10000, 98499);
         
         // Task 4: Complete hash table with separate chaining
-        benchmarkBuckets();
+        //benchmarkBuckets();
         
         
     }
