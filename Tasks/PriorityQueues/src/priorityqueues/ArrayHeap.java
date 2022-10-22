@@ -1,126 +1,124 @@
 package priorityqueues;
 
+import java.security.SecureRandom;
 import java.util.*;
 
-public class ArrayHeap {
-    private Integer[] heap;
-    private int size; // Elements in the heap
-    
-    public ArrayHeap(int capacity) {
-        this.heap = new Integer[capacity+1];
-        this.size = 0;
-    }
-    
-    public void enqueue(Integer value) {
-        if (isFull()) System.out.println("Queue is full!");
-        
-        heap[++size] = value;
-        bubble(size);
 
-        this.size++;
+/**
+ * This class represents a binary heap in an array structure.
+ * @author Adrian Jonsson
+ * Re-implemented by Alexander Lundqvist
+ */
+public class ArrayHeap {
+    private final int[] heap; // store items at indices 1 to n
+    private int size; // number of items in heap
+    private final int capacity;
+
+    public ArrayHeap(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.heap = new int[this.capacity];
     }
-    
-    private void bubble(int k) {
-        while (k > 1 && k-1/2 > k) {
-            swap(k-2/2, k);
-            k = k-1/2;
-        }
+
+    private int getLeftChildIndex(int parentIndex) {
+        return (2 * parentIndex + 1);
     }
-    
-    public Integer dequeue() {
-        if (isEmpty()) System.out.println("Queue is empty!");
-        
-        Integer min = this.heap[1];
-        swap(1, this.size--);
-        sink(1);
-        this.heap[this.size+1] = null;         
-        this.size--;
-        
-        return min;
+
+    private int getRightChildIndex(int parentIndex) {
+        return (2 * parentIndex + 2);
     }
-    
-    private void sink(int k) {
-        while (2*k <= this.size) {
-            int j = 2*k;
-            if ((j < this.size) && j > (j+1)) j++;
-            if (!(k > j)) break;
-            swap(k, j);
-            k = j;
-        }
+
+    private int parent(int childIndex) {
+        return ((childIndex - 1) / 2);
     }
-    
+
+    private boolean hasLeftChild(int index) {
+        return (getLeftChildIndex(index) < this.size);
+    }
+
+    private boolean hasRightChild(int index) {
+        return (getRightChildIndex(index) < this.size);
+    }
+
+    private boolean hasParent(int index) {
+        return (parent(index) >= 0);
+    }
+
+    private int leftChildValue(int parentIndex) {
+        return this.heap[getLeftChildIndex(parentIndex)];
+    }
+
+    private int rightChildValue(int parentIndex) {
+        return this.heap[getRightChildIndex(parentIndex)];
+    }
+
+    private int parentValue(int childIndex) {
+        return this.heap[parent(childIndex)];
+    }
+
     private void swap(int a, int b) {
-        Integer temp = this.heap[a];
+        int temp = this.heap[a];
         this.heap[a] = this.heap[b];
         this.heap[b] = temp;
     }
-    
-    private int parent(int index) {
-      return (index - 1) / 2;
-    }
-    
-    static int leftChild(int index) {
-      return ((2 * index) + 1);
+
+    private void bubble() {
+        int index = this.size - 1; // index to last element in heap
+        while (hasParent(index) && parentValue(index) > heap[index]) {
+            swap(parent(index), index);
+            index = parent(index);
+        }
     }
 
-    static int rightChild(int index) {
-      return ((2 * index) + 2);
+    private void sink() {
+        int index = 0; // where we had the old root
+        while (hasLeftChild(index)) {
+            int smallestChildIndex = getLeftChildIndex(index);
+            if (hasRightChild(index) && rightChildValue(index) < leftChildValue(index)) {
+                smallestChildIndex = getRightChildIndex(index);
+            }
+            if (this.heap[index] < heap[smallestChildIndex]) {
+                break;
+            } else {
+                swap(index, smallestChildIndex);
+            }
+            index = smallestChildIndex;
+        }
     }
-    
-    static void shiftUp(int index) {
-      while (index > 0 && heap[parent(index)] < heap[index])
-      {
-        // Swap parent and current node
-        swap(parent(index), index);
 
-        // Update i to parent of i
-        index = parent(index);
-      }
+    public int dequeue() {
+        if (this.size == 0) {
+            System.out.println("Heap is empty");
+            throw new NoSuchElementException();
+        }
+        int returnElement = this.heap[0];
+        this.heap[0] = this.heap[this.size - 1]; // set last element as root
+        this.size--;
+        sink(); // let the new root sink down
+        return returnElement;
     }
-    
-    static void shiftDown(int i)
-    {
-      int maxIndex = i;
 
-      // Left Child
-      int l = leftChild(i);
-
-      if (l <= size &&
-          H[l] > H[maxIndex])
-      {
-        maxIndex = l;
-      }
-
-      // Right Child
-      int r = rightChild(i);
-
-      if (r <= size &&
-          H[r] > H[maxIndex])
-      {
-        maxIndex = r;
-      }
-
-      // If i not same as maxIndex
-      if (i != maxIndex)
-      {
-        swap(i, maxIndex);
-        shiftDown(maxIndex);
-      }
+    public void enqueue(int item) {
+        if (this.size == capacity) {
+            System.out.println("Heap is full. Can't add item");
+            return;
+        } // items in queue will always be a value that gives an index where there is
+          // nothing inserted yet
+        this.heap[this.size] = item;
+        this.size++;
+        bubble();
     }
-    
-    private boolean isEmpty() {
-        return this.size == 0;
-    }
-    
-    private boolean isFull() {
-        return this.size == this.heap.length;
-    }
-    
-    /**
-     * Prints the contents of the queue.
-     */
+
     public void print() {
-        for(int i = 0; i < this.heap.length; i++) System.out.println(this.heap[i]);
+        System.out.println("The Min Heap is ");
+        for (int i = 0; i < this.size / 2; i++) {
+            System.out.println("PARENT : " + this.heap[i]);
+
+            System.out.println("--LEFT CHILD : " + this.heap[2 * i + 1]);
+
+            System.out.println("--RIGHT CHILD : " + this.heap[2 * i + 2]);
+            System.out.println();
+        }
     }
     
     /**
