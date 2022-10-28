@@ -84,7 +84,7 @@ public class Naive {
 
         if (distance != null) {
             System.out.println("quickest route from " + input[0] + " to " + input[1] + " : "
-                    + distance + " minutes, found in " + ((t1 - t0) / 1_000_000) + "ms");
+                    + distance + " minutes, found in " + ((t1 - t0)));
         } else {
             System.out.println("No path found - increase path");
         }

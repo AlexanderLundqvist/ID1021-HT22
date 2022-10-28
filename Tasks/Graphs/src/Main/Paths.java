@@ -27,14 +27,15 @@ public class Paths {
                 Connection conn = from.getNeighbor().get(i);
                 Integer distance = shortest(conn.getConnectingCity(), to,
                         (max != null) ? max - conn.getDistance() : null);
-                // Integer distance = shortest(conn.getConnectingCity(), to, max -
-                // conn.getDistance());
+                // Integer distance = shortest(conn.getConnectingCity(), to, max - conn.getDistance());
                 if ((distance != null) && ((shrt == null) || (shrt > distance + conn.getDistance())))
                     shrt = distance + conn.getDistance();
+                
                 // improvement
+                
                 if ((shrt != null) && ((max == null) || (max > shrt)))
                     max = shrt;
-
+                    
             }
         }
         path[sp--] = null;
@@ -43,7 +44,7 @@ public class Paths {
 
     public static void main(String[] args) {
         String[] input = new String[4];
-        int cities = 8;
+        int cities = 9;
         switch (cities) {
             case 0 -> {
                 input[0] = "Malmö";
@@ -93,7 +94,7 @@ public class Paths {
             case 9 -> {
                 input[0] = "Malmö";
                 input[1] = "Kiruna";
-                input[2] = "10000";
+                input[2] = "2";
             }
         }
         Paths path = new Paths();
@@ -106,7 +107,7 @@ public class Paths {
 
         if (distance != null) {
             System.out.println("quickest route from " + input[0] + " to " + input[1] + " : "
-                    + distance + " minutes, found in " + ((t1 - t0) / 1_000) + "us");
+                    + distance + " minutes, found in " + ((t1 - t0)/100000));
         } else {
             System.out.println("No path found - increase path");
         }
